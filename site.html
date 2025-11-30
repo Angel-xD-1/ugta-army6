@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title> ЗСУ | 06 </title>
+<style>
+body {
+    margin: 0;
+    font-family: 'Segoe UI', sans-serif;
+    background: url('https://upload.wikimedia.org/wikipedia/commons/2/2a/Fotogalereya-sso-01.jpg') no-repeat center center fixed;
+    background-size: cover;
+    color: #f0f0e0;
+    scroll-behavior: smooth;
+}
+header {
+    text-align: center;
+    padding: 20px;
+    background: rgba(20, 20, 20, 0.8);
+    box-shadow: 0 0 20px #00000088;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+header h1 {
+    margin: 0;
+    font-size: 2.5em;
+    color: #e0d8b0;
+    text-shadow: 1px 1px 3px #000;
+}
+nav {
+    margin-top: 12px;
+}
+nav button {
+    margin: 8px;
+    padding: 12px 20px;
+    border: none;
+    background: rgba(100, 100, 50, 0.7);
+    color: #f0f0e0;
+    font-size: 16px;
+    font-weight: 600;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: 0.4s;
+}
+nav button:hover {
+    background: rgba(120, 120, 60, 0.9);
+    transform: scale(1.05);
+}
+
+/* --- SECTIONS --- */
+.section {
+    padding: 50px 20px;
+    max-width: 1100px;
+    margin: auto;
+    background: rgba(30, 30, 25, 0.85);
+    border-radius: 12px;
+    box-shadow: 0 0 20px #00000055;
+    animation: fadeIn 0.8s ease;
+}
+h2 {
+    text-align: center;
+    margin-bottom: 30px;
+    font-size: 2em;
+    color: #d4c492;
+    text-shadow: 1px 1px 2px #000;
+}
+
+/* --- UNIT CARDS --- */
+.unit-card {
+    background: rgba(50, 50, 35, 0.8);
+    padding: 25px;
+    margin: 15px 0;
+    border-radius: 14px;
+    cursor: pointer;
+    transition: 0.3s;
+    border-left: 5px solid #c0b080;
+    box-shadow: 0 0 10px #00000055;
+}
+.unit-card:hover {
+    transform: translateX(5px);
+    background: rgba(70, 70, 50, 0.9);
+    box-shadow: 0 0 20px #c0b08066;
+}
+
+/* --- STAFF CARDS --- */
+.staff-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 25px;
+    justify-content: center;
+}
+.staff-card {
+    background: rgba(60, 60, 40, 0.85);
+    border-radius: 12px;
+    width: 220px;
+    text-align: center;
+    padding: 20px;
+    box-shadow: 0 0 15px #00000055;
+    transition: 0.3s;
+    border: 1px solid #c0b08044;
+}
+.staff-card:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 25px #c0b08088;
+}
+.staff-card img {
+    width: 100%;
+    border-radius: 12px;
+    margin-bottom: 12px;
+}
+
+/* --- FAQ --- */
+.faq-card {
+    background: rgba(50,50,35,0.85);
+    padding: 18px 20px;
+    margin: 12px 0;
+    border-radius: 14px;
+    border-left: 4px solid #c0b080;
+    box-shadow: 0 0 10px #00000055;
+    cursor: pointer;
+}
+.faq-card:hover {
+    background: rgba(70,70,50,0.9);
+    transform: scale(1.02);
+}
+
+/* --- GALLERY --- */
+.gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px,1fr));
+    gap: 15px;
+}
+.gallery-grid img {
+    width: 100%;
+    border-radius: 14px;
+    transition: 0.4s;
+    box-shadow: 0 0 10px #00000055;
+}
+.gallery-grid img:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 20px #c0b08088;
+}
+
+/* --- MODAL --- */
+.modal-bg {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.85);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+.modal {
+    background: rgba(30,30,25,0.95);
+    padding: 40px;
+    border-radius: 14px;
+    width: 90%;
+    max-width: 600px;
+    position: relative;
+    animation: pop 0.3s ease;
+    color: #f0f0e0;
+}
+@keyframes pop { from{ transform: scale(0.7); opacity: 0;} to{ transform: scale(1); opacity: 1;} }
+.close-btn {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    font-size: 22px;
+    cursor: pointer;
+    color: #f0f0e0;
+    transition: 0.2s;
+}
+.close-btn:hover { color: #c0b080; }
+
+/* --- ANIMATION --- */
+@keyframes fadeIn { from {opacity:0; transform:translateY(25px);} to {opacity:1; transform:translateY(0);} }
+</style>
+</head>
+<body>
+<header>
+<h1>ЗСУ | 06</h1>
+<nav>
+<button onclick="scrollToSection('units')">Підрозділи</button>
+<button onclick="scrollToSection('staff')">Старший склад</button>
+<button onclick="scrollToSection('faq')">FAQ</button>
+<button onclick="scrollToSection('gallery')">Галерея</button>
+</nav>
+</header>
+
+<section class="section" id="units">
+<h2>Наші Підрозділи</h2>
+<div class="unit-card" onclick="openModal('ТЦК', 'Територіальний центр комплектування-орган військового управління України,займається мобілізацією.')">ТЦК</div>
+<div class="unit-card" onclick="openModal('НК',  'Навчальний корпус ЗСУ — навчає новобранців.')">НК</div>
+<div class="unit-card" onclick="openModal('ССО', 'Сили спеціальних операцій-це елітний підрозділ який виконує найващі місії.')">ССО</div>
+<div class="unit-card" onclick="openModal('ГУР', 'Головне́ управлі́ння ро́звідки-займається розвідою.')">           ГУР</div>
+<div class="unit-card" onclick="openModal('ДПСУ', 'Держа́вна прикордо́нна слу́жба Украї́ни-займається прикордонними справами.')">ДПСУ</div>
+</section>
+
+<section class="section staff-section" id="staff">
+<section class="staff-section">
+  <h2>Старший склад</h2>
+  <div class="staff-grid">
+    <!-- Генерал -->
+    <div class="staff-card">
+      <a href="https://via.placeholder.com/150" target="_blank">
+        <img src="https://greatpersonn.github.io/ugra.army.01/static/image/head_of_army.aba4c074.png" alt="Генерал">
+      </a>
+      <h4>Микола Дилер</h4>
+      <h5>Генерал</h5>
+    </div>
+    <!-- Полковники -->
+    <div class="staff-card">
+      <a href="https://via.placeholder.com/150" target="_blank">
+        <img src="https://greatpersonn.github.io/ugra.army.01/static/image/colonel.f3216433.png" alt="Полковник 1">
+      </a>
+      <h4>Віктор Гончар</h4>
+      <h5>Полковник</h5>
+    </div>
+    <div class="staff-card">
+      <a href="https://via.placeholder.com/150" target="_blank">
+        <img src="https://greatpersonn.github.io/ugra.army.01/static/image/colonel.f3216433.png" alt="Полковник 2">
+      </a>
+      <h4>Данило Яворівський</h4>
+      <h5>Полковник</h5>
+    </div>
+    <div class="staff-card">
+      <a href="https://via.placeholder.com/150" target="_blank">
+        <img src="https://greatpersonn.github.io/ugra.army.01/static/image/colonel.f3216433.png" alt="Полковник 3">
+      </a>
+      <h4>Дмитро Стадніков</h4>
+      <h5>Полковник</h5>
+    </div>
+    <div class="staff-card">
+      <a href="https://via.placeholder.com/150" target="_blank">
+        <img src="https://greatpersonn.github.io/ugra.army.01/static/image/colonel.f3216433.png" alt="Полковник 4">
+      </a>
+      <h4>Олександр Пума</h4>
+      <h5>Полковник</h5>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="faq">
+<h2>FAQ</h2>
+<div class="faq-card" onclick="openModal('Ви кваліфікований та досвідчений громадянин та немаєте роботи?','Лав ЗСУ пропонують вам вступити у нашу фракцію.Що ви отримаєте-дружній колектив та незабутні емоції.')">Ви кваліфікований та досвідчений громадянин та немаєте роботи?	</div>
+<div class="faq-card" onclick="openModal('Як потрапити у ЗСУ?','Усе дуже просто.Щоб потрапити ви можете декількома шляхами: отримайте повістку або прийдіть на співбесіду у військомат. З собою необхідно мати паспорт і медичну карту. У військоматі потрібно буде пройти співбесіду.')">Як потрапити у ЗСУ?</div>
+<div class="faq-card" onclick="openModal('Що я отримаю коли стану військовослужбовцем?','Безкоштовне лікування, достойне грошове забезпечення, оновленний соціальний статус і підтримка зі сторони держави. Вас забезпечать формою, багаторазовим харчуванням, дружній колектив, який ніколи не підведе і завжди підтримає.')">Що я отримаю коли стану військовослужбовцем?</div>
+<div class="faq-card" onclick="openModal('Куди звернутись про правопорушення військовослужбовців?','Зверніться до Старшого Складу ЗСУ , надайте їм докази та опишіть ситуацію, залиште свої контактні дані. Служба Правопорядку - зареєструє справу і буде проводити розслідування. Як наслідок - ви отримаєте дзвінок і вам повідомлять по рішення.')">Куди звернутись про правопорушення військовослужбовців?</div>
+<div class="faq-card" onclick="openModal('Чи впораюся я зі службою в ЗСУ?','У Збройних Силах існує підрозділ НК - навчальний корпус, який повністю займається вашою фізичною підготовкою, навчанням, вогневими практиками і іншими тренуванням.')">Чи впораюся я зі службою в ЗСУ?</div>
+</section>
+
+<section class="gallery-section">
+  <h2>Галерея</h2>
+  <div class="gallery-grid">
+    <img src="https://greatpersonn.github.io/ugra.army.01/static/image/gallery4.481da29b.png" alt="Фото 1">
+    <img src="https://greatpersonn.github.io/ugra.army.01/static/image/gallery7.569f9516.png" alt="Фото 2">
+    <img src="https://greatpersonn.github.io/ugra.army.01/static/image/gallery6.c7680b4d.png" alt="Фото 3">
+    <img src="https://greatpersonn.github.io/ugra.army.01/static/image/gallery4.481da29b.png" alt="Фото 4">
+  </div>
+</section>
+
+<style>
+.gallery-section {
+    padding: 40px 20px;
+    background: rgba(30,30,25,0.85);
+    border-radius: 12px;
+    max-width: 1100px;
+    margin: 50px auto;
+}
+
+.gallery-section h2 {
+    text-align: center;
+    color: #d4c492;
+    margin-bottom: 30px;
+}
+
+/* Сітка 2 фото в рядку */
+.gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+}
+
+.gallery-grid img {
+    width: 88%;
+    height: 270px;
+    object-fit: cover;
+    border-radius: 15px;
+    transition: transform 0.4s, box-shadow 0.4s;
+    box-shadow: 0 0 10px #00000055;
+}
+
+.gallery-grid img:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 20px #c0b08088;
+}
+
+/* Мобільна адаптивність: 1 фото на рядок */
+@media (max-width: 768px) {
+    .gallery-grid {
+        grid-template-columns: 1fr;
+    }
+}
+</style>
+
+<!-- Модальне вікно -->
+<div class="modal-bg" id="modal-bg">
+<div class="modal">
+<div class="close-btn" onclick="closeModal()">✖</div>
+<h2 id="modal-title"></h2>
+<p id="modal-text"></p>
+</div>
+</div>
+
+<script>
+function scrollToSection(id) {
+    document.getElementById(id).scrollIntoView({behavior:'smooth'});
+}
+
+function openModal(title, text) {
+    document.getElementById('modal-title').innerText = title;
+    document.getElementById('modal-text').innerText = text;
+    document.getElementById('modal-bg').style.display = 'flex';
+}
+
+function closeModal() {
+    document.getElementById('modal-bg').style.display = 'none';
+}
+</script>
+</body>
+</html>
+
+
