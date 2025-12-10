@@ -342,6 +342,51 @@ document.getElementById('year').textContent = new Date().getFullYear();
 </body>
 </html>
 
+<style>
+    .snowflake {
+        position: fixed;
+        top: -20px;
+        color: white;
+        font-size: 1em;
+        pointer-events: none;
+        user-select: none;
+        z-index: 9999;
+        animation-name: fall;
+        animation-timing-function: linear;
+    }
+
+    @keyframes fall {
+        0% { transform: translateY(0); }
+        100% { transform: translateY(110vh); }
+    }
+</style>
+
+<script>
+    function createSnowflake() {
+        const snow = document.createElement("div");
+        snow.classList.add("snowflake");
+        snow.innerHTML = "❄";
+
+        const size = Math.random() * 20 + 10;
+        snow.style.fontSize = size + "px";
+
+        snow.style.left = Math.random() * 100 + "vw";
+        snow.style.opacity = Math.random();
+
+        const duration = Math.random() * 5 + 5;
+        snow.style.animationDuration = duration + "s";
+
+        document.body.appendChild(snow);
+
+        // Видалити після падіння
+        setTimeout(() => {
+            snow.remove();
+        }, duration * 1000);
+    }
+
+    // Створювати нову сніжинку кожні 120 мс (регулюй)
+    setInterval(createSnowflake, 120);
+</script>
 
 
 
